@@ -9,16 +9,19 @@ public class Employee {
     String empName;
     int salary;
     int phoneNo;
-    String shopName;
     String position;
+    String shopName;
 
-    public Employee(int NIP, String empName, int salary, int phoneNo, String shopName, String position) {
+    public Employee() {
+    }
+
+    public Employee(int NIP, String empName, int salary, int phoneNo, String position, String shopName) {
         this.NIP = NIP;
         this.empName = empName;
         this.salary = salary;
         this.phoneNo = phoneNo;
-        this.shopName = shopName;
         this.position = position;
+        this.shopName = shopName;
     }
 
     public int getNIP() {
@@ -67,5 +70,16 @@ public class Employee {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "NIP=" + NIP +
+                ", empName='" + empName + '\'' +
+                ", phoneNo=" + phoneNo +
+                ", shopName='" + shopName + '\'' +
+                ", position='" + position + '\'' +
+                '}';
     }
 }

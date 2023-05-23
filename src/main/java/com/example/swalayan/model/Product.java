@@ -6,29 +6,55 @@ import org.springframework.context.annotation.Bean;
 
 public class Product {
     @Id
-    int id;
-    String name;
+    int idProd;
+    String prodName;
+    int price;
+    int stock;
     String desc;
-    int weight;
+    String shopName;
 
     public Product() {
-
     }
 
-    public int getId() {
-        return id;
+    public Product(int idProd, String prodName, int price, int stock, String desc, String shopName) {
+        this.idProd = idProd;
+        this.prodName = prodName;
+        this.price = price;
+        this.stock = stock;
+        this.desc = desc;
+        this.shopName = shopName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getIdProd() {
+        return idProd;
     }
 
-    public String getName() {
-        return name;
+    public void setIdProd(int idProd) {
+        this.idProd = idProd;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getDesc() {
@@ -39,11 +65,21 @@ public class Product {
         this.desc = desc;
     }
 
-    public int getWeight() {
-        return weight;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idProd=" + idProd +
+                ", prodName='" + prodName + '\'' +
+                ", desc='" + desc + '\'' +
+                ", shopName='" + shopName + '\'' +
+                '}';
     }
 }
