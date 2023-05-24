@@ -1,43 +1,48 @@
 package com.example.swalayan.model;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-public class Employee {
+import java.io.Serializable;
 
+@Entity
+@Table(name = "employee")
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
-    int NIP;
-    String empName;
-    int salary;
-    int phoneNo;
-    String position;
-    String shopName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long nip;
+    private String name;
+    private int salary;
+    private String number_phone;
+    private String position;
+    private String shop_name;
 
     public Employee() {
     }
 
-    public Employee(int NIP, String empName, int salary, int phoneNo, String position, String shopName) {
-        this.NIP = NIP;
-        this.empName = empName;
+    public Employee(Long nip, String name, int salary, String number_phone, String position, String shop_name) {
+        this.nip = nip;
+        this.name = name;
         this.salary = salary;
-        this.phoneNo = phoneNo;
+        this.number_phone = number_phone;
         this.position = position;
-        this.shopName = shopName;
+        this.shop_name = shop_name;
     }
 
-    public int getNIP() {
-        return NIP;
+    public Long getNip() {
+        return nip;
     }
 
-    public void setNIP(int NIP) {
-        this.NIP = NIP;
+    public void setNip(Long nip) {
+        this.nip = nip;
     }
 
-    public String getEmpName() {
-        return empName;
+    public String getName() {
+        return name;
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSalary() {
@@ -48,20 +53,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getPhoneNo() {
-        return phoneNo;
+    public String getNumber_phone() {
+        return number_phone;
     }
 
-    public void setPhoneNo(int phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setNumber_phone(String number_phone) {
+        this.number_phone = number_phone;
     }
 
     public String getPosition() {
@@ -72,14 +69,15 @@ public class Employee {
         this.position = position;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "NIP=" + NIP +
-                ", empName='" + empName + '\'' +
-                ", phoneNo=" + phoneNo +
-                ", shopName='" + shopName + '\'' +
-                ", position='" + position + '\'' +
-                '}';
+    public String getShop_name() {
+        return shop_name;
+    }
+
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 }
