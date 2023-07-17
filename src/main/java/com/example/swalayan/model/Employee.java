@@ -1,83 +1,89 @@
 package com.example.swalayan.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employee")
-public class Employee implements Serializable {
+public class Employee implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nip;
+    public Long nip;
     private String name;
-    private int salary;
+    public String username;
+    public String password;
+    private String address;
     private String number_phone;
+    private String dept_name;
     private String position;
-    private String shop_name;
 
-    public Employee() {
+    @ManyToMany
+    @JoinTable(
+            name = "employees_roles",
+            joinColumns = @JoinColumn(name = "employee_nip"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getNama_role()));
+        }
+        return authorities;
     }
 
-    public Employee(Long nip, String name, int salary, String number_phone, String position, String shop_name) {
-        this.nip = nip;
-        this.name = name;
-        this.salary = salary;
-        this.number_phone = number_phone;
-        this.position = position;
-        this.shop_name = shop_name;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public Long getNip() {
-        return nip;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public void setNip(Long nip) {
-        this.nip = nip;
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
-    public String getName() {
-        return name;
+    public Employee(String test123, String password) {
     }
 
-    public void setName(String name) {
-        this.name = name;
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public int getSalary() {
-        return salary;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getNumber_phone() {
-        return number_phone;
-    }
-
-    public void setNumber_phone(String number_phone) {
-        this.number_phone = number_phone;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getShop_name() {
-        return shop_name;
-    }
-
-    public void setShop_name(String shop_name) {
-        this.shop_name = shop_name;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
